@@ -1,0 +1,10 @@
+D:\ИРНИТУ\2 курс\Технология программирования\Курсовая работа\Система частиц\Coursework\bin\Debug\Coursework.exe.config
+D:\ИРНИТУ\2 курс\Технология программирования\Курсовая работа\Система частиц\Coursework\bin\Debug\Coursework.exe
+D:\ИРНИТУ\2 курс\Технология программирования\Курсовая работа\Система частиц\Coursework\bin\Debug\Coursework.pdb
+D:\ИРНИТУ\2 курс\Технология программирования\Курсовая работа\Система частиц\Coursework\obj\Debug\Coursework.csproj.AssemblyReference.cache
+D:\ИРНИТУ\2 курс\Технология программирования\Курсовая работа\Система частиц\Coursework\obj\Debug\Coursework.Form1.resources
+D:\ИРНИТУ\2 курс\Технология программирования\Курсовая работа\Система частиц\Coursework\obj\Debug\Coursework.Properties.Resources.resources
+D:\ИРНИТУ\2 курс\Технология программирования\Курсовая работа\Система частиц\Coursework\obj\Debug\Coursework.csproj.GenerateResource.cache
+D:\ИРНИТУ\2 курс\Технология программирования\Курсовая работа\Система частиц\Coursework\obj\Debug\Coursework.csproj.CoreCompileInputs.cache
+D:\ИРНИТУ\2 курс\Технология программирования\Курсовая работа\Система частиц\Coursework\obj\Debug\Coursework.exe
+D:\ИРНИТУ\2 курс\Технология программирования\Курсовая работа\Система частиц\Coursework\obj\Debug\Coursework.pdb
