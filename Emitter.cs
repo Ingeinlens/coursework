@@ -9,6 +9,21 @@ namespace Coursework
 {
     public class Emitter
     {
+        public int X; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
+        public int Y; // соответствующая координата Y
+        public int Direction = 0; // вектор направления в градусах куда сыпет эмиттер
+        public int Spreading = 360; // разброс частиц относительно Direction
+        public int SpeedMin = 1; // начальная минимальная скорость движения частицы
+        public int SpeedMax = 10; // начальная максимальная скорость движения частицы
+        public int RadiusMin = 2; // минимальный радиус частицы
+        public int RadiusMax = 10; // максимальный радиус частицы
+        public int LifeMin = 20; // минимальное время жизни частицы
+        public int LifeMax = 100; // максимальное время жизни частицы
+        public int ParticlesPerTick = 1; // количество частиц за один такт
+
+        public Color ColorFrom = Color.White; // начальный цвет частицы
+        public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
+
         // собственно список, пока пустой
         public List<Particle> particles = new List<Particle>();
 
@@ -23,7 +38,7 @@ namespace Coursework
         //гравитация
         public float GravitationX = 0;
 
-        public float GravitationY = 0; // пусть гравитация будет силой один пиксель за такт, нам хватит
+        public float GravitationY = 1; // пусть гравитация будет силой один пиксель за такт, нам хватит
 
         //список гравитационных точек
         public List<IImpactPoint> impactPoints = new List<IImpactPoint>(); // <<< ТАК ВОТ
@@ -31,16 +46,30 @@ namespace Coursework
         // добавил функцию обновления состояния системы
         public void UpdateState()
         {
+            int particlesToCreate = ParticlesPerTick; // фиксируем счетчик сколько частиц нам создавать за тик
+
             foreach (var particle in particles)
             {
-                particle.Life -= 1; // уменьшаю здоровье
-                                    // если здоровье кончилось
-                if (particle.Life < 0)
+                if (particle.Life <= 0) // если частицы умерла
                 {
-                    ResetParticle(particle); // заменили этот блок на вызов сброса частицы
+                    /*
+                     * то проверяем надо ли создать частицу
+                     */
+                    if (particlesToCreate > 0)
+                    {
+                        /* у нас как сброс частицы равносилен созданию частицы */
+                        particlesToCreate -= 1; // поэтому уменьшаем счётчик созданных частиц на 1
+                        ResetParticle(particle);
+                    }
                 }
                 else
                 {
+                    // и добавляем новый, собственно он даже проще становится,
+                    // так как теперь мы храним вектор скорости в явном виде и его не надо пересчитывать
+                    particle.X += particle.SpeedX;
+                    particle.Y += particle.SpeedY;
+
+                    particle.Life -= 1;
                     // каждая точка по-своему воздействует на вектор скорости
                     foreach (var point in impactPoints)
                     {
@@ -50,34 +79,18 @@ namespace Coursework
                     // гравитация воздействует на вектор скорости, поэтому пересчитываем его
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
-
-                    // и добавляем новый, собственно он даже проще становится,
-                    // так как теперь мы храним вектор скорости в явном виде и его не надо пересчитывать
-                    particle.X += particle.SpeedX;
-                    particle.Y += particle.SpeedY;
                 }
             }
 
-            // добавил генерацию частиц
-            // генерирую не более 10 штук за тик
-            for (var i = 0; i < 10; ++i)
+            // этот новый цикл также будет срабатывать только в самом начале работы эмиттера
+            // собственно пока не накопится критическая масса частиц
+            while (particlesToCreate >= 1)
             {
-                if (particles.Count < ParticlesCount) // пока частиц меньше 500 генерируем новые
-                {
-                    // а у тут уже наш новый класс используем
-                    var particle = new ParticleColorful();
-                    // ну и цвета меняем
-                    particle.FromColor = Color.White;
-                    particle.ToColor = Color.FromArgb(0, Color.Black);
-
-                    ResetParticle(particle); // добавили вызов ResetParticle
-
-                    particles.Add(particle);
-                }
-                else
-                {
-                    break; // а если частиц уже 500 штук, то ничего не генерирую
-                }
+                particlesToCreate -= 1;
+                // а у тут уже наш новый класс используем
+                var particle = CreateParticle();
+                ResetParticle(particle); // добавили вызов ResetParticle
+                particles.Add(particle);
             }
         }
 
@@ -100,17 +113,37 @@ namespace Coursework
         // добавил новый метод, виртуальным, чтобы переопределять можно было
         public virtual void ResetParticle(Particle particle)
         {
-            particle.Life = 20 + Particle.rand.Next(100);
-            particle.X = MousePositionX;
-            particle.Y = MousePositionY;
+            // установка жизни частицы
+            particle.Life = Particle.rand.Next(LifeMin, LifeMax);
 
-            var direction = (double)Particle.rand.Next(360);
-            var speed = 1 + Particle.rand.Next(10);
+            // установка координат частицы
+            particle.X = X;
+            particle.Y = Y;
 
+            // переменная направления
+            var direction = Direction
+                + (double)Particle.rand.Next(Spreading)
+                - Spreading / 2;
+
+            // переменная скорости
+            var speed = Particle.rand.Next(SpeedMin, SpeedMax);
+
+            // установка скорости частицы по координатам
             particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
             particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
 
-            particle.Radius = 2 + Particle.rand.Next(10);
+            // установка радиуса частицы
+            particle.Radius = Particle.rand.Next(RadiusMin, RadiusMax);
+        }
+
+        // метод для генерации частицы
+        public virtual Particle CreateParticle()
+        {
+            var particle = new ParticleColorful();
+            particle.FromColor = ColorFrom;
+            particle.ToColor = ColorTo;
+
+            return particle;
         }
     }
 
