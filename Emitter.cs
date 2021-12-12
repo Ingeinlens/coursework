@@ -73,7 +73,7 @@ namespace Coursework
                     // каждая точка по-своему воздействует на вектор скорости
                     foreach (var point in impactPoints)
                     {
-                        point.ImpactParticle(particle);
+                        point.ImpactParticle(particle, X, Y);
                     }
 
                     // гравитация воздействует на вектор скорости, поэтому пересчитываем его

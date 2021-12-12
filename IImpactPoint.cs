@@ -14,7 +14,7 @@ namespace Coursework
 
         // абстрактный метод с помощью которого будем изменять состояние частиц
         // например притягивать
-        public abstract void ImpactParticle(Particle particle);
+        public abstract void ImpactParticle(Particle particle, int x, int y);
 
         // базовый класс для отрисовки точечки
         public virtual void Render(Graphics g)
