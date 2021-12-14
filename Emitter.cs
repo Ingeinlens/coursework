@@ -41,7 +41,7 @@ namespace Coursework
         public float GravitationY = 1; // пусть гравитация будет силой один пиксель за такт, нам хватит
 
         //список гравитационных точек
-        public List<IImpactPoint> impactPoints = new List<IImpactPoint>(); // <<< ТАК ВОТ
+        public List<IImpactPoint> impactPoints = new List<IImpactPoint>();
 
         // добавил функцию обновления состояния системы
         public void UpdateState()

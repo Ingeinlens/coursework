@@ -36,6 +36,7 @@ namespace Coursework
             this.lblDirection = new System.Windows.Forms.Label();
             this.tbGraviton = new System.Windows.Forms.TrackBar();
             this.tbGraviton2 = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton)).BeginInit();
@@ -93,11 +94,21 @@ namespace Coursework
             this.tbGraviton2.TabIndex = 4;
             this.tbGraviton2.Scroll += new System.EventHandler(this.tbGraviton2_Scroll);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(749, 392);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 17);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 436);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.tbGraviton2);
             this.Controls.Add(this.tbGraviton);
             this.Controls.Add(this.lblDirection);
@@ -122,6 +133,7 @@ namespace Coursework
         private System.Windows.Forms.Label lblDirection;
         private System.Windows.Forms.TrackBar tbGraviton;
         private System.Windows.Forms.TrackBar tbGraviton2;
+        private System.Windows.Forms.Label label1;
     }
 }
 

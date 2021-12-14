@@ -141,18 +141,24 @@ namespace Coursework
             float ty;
             float by;
 
-            // область счётчика
-            if (counter != null)
+            if (e.Button == MouseButtons.Right)
             {
-                lx = counter.X - counter.Power / 2;
-                rx = counter.X + counter.Power / 2;
-
-                ty = counter.Y - counter.Power / 2;
-                by = counter.Y + counter.Power / 2;
-
-                if (e.Button == MouseButtons.Right && e.X > lx && e.X < rx && e.Y > ty && e.Y < by)
+                foreach (IImpactPoint em in emitter.impactPoints.ToList())
                 {
-                    emitter.impactPoints.Remove(counter);
+                    if (counter.GetType() == em.GetType())
+                    {
+                        this.label1.Text += em.X.ToString() + "\n";
+                        lx = em.X - em.Power / 2;
+                        rx = em.X + em.Power / 2;
+
+                        ty = em.Y - em.Power / 2;
+                        by = em.Y + em.Power / 2;
+
+                        if (e.X > lx && e.X < rx && e.Y > ty && e.Y < by)
+                        {
+                            emitter.impactPoints.Remove(em);
+                        }
+                    }
                 }
             }
 

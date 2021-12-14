@@ -12,6 +12,8 @@ namespace Coursework
         public float X; // ну точка же, вот и две координаты
         public float Y;
 
+        public int Power = 100; // сила притяжения
+
         // абстрактный метод с помощью которого будем изменять состояние частиц
         // например притягивать
         public abstract void ImpactParticle(Particle particle, int x, int y);

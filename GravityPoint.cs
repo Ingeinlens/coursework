@@ -9,7 +9,6 @@ namespace Coursework
 {
     public class GravityPoint : IImpactPoint
     {
-        public int Power = 100; // сила притяжения
         public int PointCounter = 0;
 
         // а сюда по сути скопировали с минимальными правками то что было в UpdateState
@@ -70,8 +69,6 @@ namespace Coursework
 
     public class AntiGravityPoint : IImpactPoint
     {
-        public int Power = 100; // сила отторжения
-
         // а сюда по сути скопировали с минимальными правками то что было в UpdateState
         public override void ImpactParticle(Particle particle, int x, int y)
         {
