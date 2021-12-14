@@ -147,7 +147,6 @@ namespace Coursework
                 {
                     if (counter.GetType() == em.GetType())
                     {
-                        this.label1.Text += em.X.ToString() + "\n";
                         lx = em.X - em.Power / 2;
                         rx = em.X + em.Power / 2;
 
